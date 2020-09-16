@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertaskmanager/task_manager_app.dart';
 
 void main() {
-  runApp(Text("hello world!"));
+  runApp(TaskManagerApp());
 }
