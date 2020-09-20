@@ -1,57 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertaskmanager/bloc/counter_block.dart';
+import 'package:fluttertaskmanager/bloc/tasks_bloc.dart';
 import 'package:fluttertaskmanager/models/task.dart';
 
-class TaskWidget extends StatefulWidget {
-  const TaskWidget({Key key, @required this.task}) : super(key: key);
+class TaskWidget extends StatelessWidget {
 
   final Task task;
+  final int taskId;
 
-  @override
-  _TaskWidgetState createState() => _TaskWidgetState();
-}
+  TaskWidget({this.task, this.taskId});
 
-class _TaskWidgetState extends State<TaskWidget> {
-  bool isSelected = false;
-
-  @override
-  void initState() {
-    super.initState();
-    print("initState");
-  }
-
-  void markSelected(_counterBloc) {
-    print('press');
-
-    setState(() {
-      isSelected = !isSelected;
-    });
-
-    if (isSelected) {
-      _counterBloc.add(CounterEvents.increment);
-    }
-    else {
-      _counterBloc.add(CounterEvents.decrement);
-    }
+  void markSelected(_tasksBloc){
+    _tasksBloc.add(TaskEventSelect(taskId));
   }
 
   @override
   Widget build(BuildContext context) {
-    final _counterBloc = BlocProvider.of<CounterBloc>(context);
+    final _tasksBloc = BlocProvider.of<TasksBloc>(context);
 
     return Card(
-      color: isSelected ? Colors.blue[700] : Colors.blue[400],
+      color: task.isSelected ? Colors.blue[700] : Colors.blue[400],
       shadowColor: Colors.grey[500],
       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
       elevation: 5,
       child: ListTile(
         enabled: true,
-        title: Text(widget.task.text,
+        title: Text(task.text,
             maxLines: 1,
             style: TextStyle(fontSize: 20, color: Colors.white),
             textAlign: TextAlign.center),
-        subtitle: Text(widget.task.text,
+        subtitle: Text(task.text,
             style: TextStyle(fontSize: 14, color: Colors.grey[300]),
             textAlign: TextAlign.center),
         leading: IconButton(
@@ -59,11 +37,72 @@ class _TaskWidgetState extends State<TaskWidget> {
           icon: Icon(
             Icons.check,
             size: 40,
-            color: isSelected ? Colors.white : Colors.grey[400],
+            color: task.isSelected ? Colors.white : Colors.grey[400],
           ),
-          onPressed: () => markSelected(_counterBloc),
+          onPressed: () => markSelected(_tasksBloc),
         ),
       ),
     );
   }
 }
+
+
+
+
+// class TaskWidget extends StatefulWidget {
+//   const TaskWidget({Key key, @required this.task, this.id}) : super(key: key);
+//
+//   final Task task;
+//   final int id;
+//
+//   @override
+//   _TaskWidgetState createState() => _TaskWidgetState(task, id);
+// }
+//
+// class _TaskWidgetState extends State<TaskWidget> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     print("initState");
+//   }
+//
+//   final Task task;
+//   final int id;
+//
+//   _TaskWidgetState(this.task, this.id);
+//
+//   void markSelected(_tasksBloc) {
+//     _tasksBloc.add(TaskEventSelect(id));
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final _tasksBloc = BlocProvider.of<TasksBloc>(context);
+//
+//     return Card(
+//       color: false ? Colors.blue[700] : Colors.blue[400],
+//       shadowColor: Colors.grey[500],
+//       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+//       elevation: 5,
+//       child: ListTile(
+//         enabled: true,
+//         title: Text(widget.task.text,
+//             maxLines: 1,
+//             style: TextStyle(fontSize: 20, color: Colors.white),
+//             textAlign: TextAlign.center),
+//         subtitle: Text(widget.task.text,
+//             style: TextStyle(fontSize: 14, color: Colors.grey[300]),
+//             textAlign: TextAlign.center),
+//         leading: IconButton(
+//           disabledColor: Colors.grey[400],
+//           icon: Icon(
+//             Icons.check,
+//             size: 40,
+//             color: false ? Colors.white : Colors.grey[400],
+//           ),
+//           onPressed: () => markSelected(_tasksBloc),
+//         ),
+//       ),
+//     );
+//   }
+// }
