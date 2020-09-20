@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertaskmanager/bloc/tasks_bloc.dart';
+import 'package:fluttertaskmanager/components/button_remove.dart';
 import 'package:fluttertaskmanager/models/task.dart';
 
 class TaskWidget extends StatelessWidget {
@@ -41,6 +42,7 @@ class TaskWidget extends StatelessWidget {
           ),
           onPressed: () => markSelected(_tasksBloc),
         ),
+        trailing: ButtonRemoveWidget(taskId)
       ),
     );
   }

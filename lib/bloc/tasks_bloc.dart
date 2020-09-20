@@ -11,6 +11,11 @@ class TaskEventSelect extends TasksEvent {
 
 class TaskEventAdd extends TasksEvent {}
 
+class TaskEventRemove extends TasksEvent {
+  final int index;
+  TaskEventRemove(this.index);
+}
+
 
 class TasksBloc extends Bloc<TasksEvent, List<Task>> {
   TasksBloc(List<Task> initialState) : super(initialState);
@@ -24,6 +29,11 @@ class TasksBloc extends Bloc<TasksEvent, List<Task>> {
 
     if(event is TaskEventAdd) {
       state.add(new Task("Задание номер ${state.length + 1}", false, DateTime.now()));
+      yield List.from(state);
+    }
+
+    if(event is TaskEventRemove) {
+      state.removeAt(event.index);
       yield List.from(state);
     }
   }
