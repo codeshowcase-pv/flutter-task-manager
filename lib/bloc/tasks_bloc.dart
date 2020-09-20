@@ -23,7 +23,7 @@ class TasksBloc extends Bloc<TasksEvent, List<Task>> {
   @override
   Stream<List<Task>> mapEventToState(TasksEvent event) async* {
     if (event is TaskEventSelect) {
-      state.elementAt(event.index).isSelected = true;
+      state.elementAt(event.index).isSelected = !state.elementAt(event.index).isSelected;
       yield List.from(state);
     }
 
