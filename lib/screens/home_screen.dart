@@ -38,31 +38,32 @@ class HomeScreen extends StatelessWidget {
             children: [
               BlocBuilder<TasksBloc, List<Task>>(
                   builder: (context, List<Task> tasks) {
-                    return Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: tasks.length,
-                        itemBuilder: (_, index) => TaskWidget(
-                          task: tasks[index],
-                          taskId: index
-                        ),
-                      ),
-                    );
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  BlocBuilder<TasksBloc, List<Task>>(
-                    builder: (context, List<Task> tasks) {
-                      return Text(
-                        "Всего: ${tasks.length}",
-                        style: TextStyle(fontSize: 24),
-                      );
-                    },
+                return Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: tasks.length,
+                    itemBuilder: (_, index) =>
+                        TaskWidget(task: tasks[index], taskId: index),
                   ),
-                  ButtonAddWidget()
-                ],
+                );
+              }),
+              Container(
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    BlocBuilder<TasksBloc, List<Task>>(
+                      builder: (context, List<Task> tasks) {
+                        return Text(
+                          "Всего: ${tasks.length}",
+                          style: TextStyle(fontSize: 24),
+                        );
+                      },
+                    ),
+                    ButtonAddWidget(),
+                  ],
+                ),
               ),
             ],
           ),
