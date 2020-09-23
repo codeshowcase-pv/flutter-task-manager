@@ -10,21 +10,7 @@ import 'package:fluttertaskmanager/components/task.dart';
 import 'package:fluttertaskmanager/models/task.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final List<Task> _tasks = [
-  // Task("Купить хлеб, 1 батон", true, DateTime.now()),
-  // Task("Забрать ребенка из садика", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", true, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-  // Task("Сверстать сайт из взятого заказа", false, DateTime.now()),
-];
+final List<Task> _tasks = [];
 
 class HomeScreen extends StatelessWidget {
   @override
