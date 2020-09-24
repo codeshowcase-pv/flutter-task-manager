@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertaskmanager/bloc/tasks_bloc.dart';
 import 'package:fluttertaskmanager/components/button_remove.dart';
 import 'package:fluttertaskmanager/models/task.dart';
+import 'package:fluttertaskmanager/screens/task_edit_screen.dart';
 
 class TaskWidget extends StatelessWidget {
 
@@ -13,6 +14,10 @@ class TaskWidget extends StatelessWidget {
 
   void markSelected(_tasksBloc){
     _tasksBloc.add(TaskEventSelect(taskId));
+  }
+
+  void editTask(context){
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => new TaskEditScreen(id: taskId, text: task.text,)));
   }
 
   @override
@@ -26,6 +31,9 @@ class TaskWidget extends StatelessWidget {
       elevation: 5,
       child: ListTile(
         enabled: true,
+        onTap: () => {
+          editTask(context)
+        },
         title: Text(task.text,
             maxLines: 1,
             style: TextStyle(fontSize: 20, color: Colors.white),
