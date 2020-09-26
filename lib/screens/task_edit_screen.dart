@@ -3,16 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertaskmanager/bloc/tasks_bloc.dart';
 import 'package:fluttertaskmanager/models/task.dart';
+import 'package:fluttertaskmanager/screens/home_screen.dart';
 
 class TaskEditScreen extends StatelessWidget {
   final int id;
-  final String text;
+  final String defaultText;
 
-  const TaskEditScreen({Key key, this.id, this.text}) : super(key: key);
+  const TaskEditScreen({Key key, this.id, this.defaultText}) : super(key: key);
+
+
+  void save(context, tasksBloc, text) {
+    String finalText = text != null ? text : defaultText;
+    tasksBloc.add(new TaskEventChangeText(id, finalText));
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomeScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
-    String text;
+    String finalText;
+    final tasksBloc = BlocProvider.of<TasksBloc>(context);
 
     return (new Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -37,7 +46,7 @@ class TaskEditScreen extends StatelessWidget {
                             controller: TextEditingController(
                               text: tasks[id].text,
                             ),
-                            onChanged: (text) => {print(text)},
+                            onChanged: (value) => {finalText = value},
                             maxLines: null,
                           ),
                         ),
@@ -51,6 +60,7 @@ class TaskEditScreen extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.save, color: Colors.blue[400]),
                         iconSize: 90,
+                        onPressed: () => save(context, tasksBloc, finalText),
                       )
                     ],
                   )

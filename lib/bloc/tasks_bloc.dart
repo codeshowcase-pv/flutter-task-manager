@@ -18,6 +18,12 @@ class TaskEventRemove extends TasksEvent {
 
 class TaskEventRemoveSelected extends TasksEvent {}
 
+class TaskEventChangeText extends TasksEvent {
+  final String text;
+  final int index;
+  TaskEventChangeText(this.index, this.text);
+}
+
 
 class TasksBloc extends Bloc<TasksEvent, List<Task>> {
   TasksBloc(List<Task> initialState) : super(initialState);
@@ -41,6 +47,11 @@ class TasksBloc extends Bloc<TasksEvent, List<Task>> {
 
     if(event is TaskEventRemoveSelected) {
       state.removeWhere((element) => element.isSelected);
+      yield List.from(state);
+    }
+
+    if(event is TaskEventChangeText) {
+      state.elementAt(event.index).text = event.text;
       yield List.from(state);
     }
   }

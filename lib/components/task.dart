@@ -17,7 +17,7 @@ class TaskWidget extends StatelessWidget {
   }
 
   void editTask(context){
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => new TaskEditScreen(id: taskId, text: task.text,)));
+    Navigator.push(context, new MaterialPageRoute(builder: (context) => new TaskEditScreen(id: taskId, defaultText: task.text,)));
   }
 
   @override
